@@ -2,17 +2,25 @@ import React from 'react'
 import { useState } from 'react'
 import './style.css'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
   const [values,setValues]=useState(
   {
     email:'',
-    password:' '
+    password:''
   })
+  const navigate=useNavigate()
+  axios.defaults.withCredentials=true
   const handleSubmit =(event) =>{
     event.preventDefault()
-    axios.post('http://localhost:3001/auth/adminlogin',values).then
-    (result =>console =>console.log(result)).catch(err =>console.log(err))
+    axios.post('http://localhost:3000/auth/adminlogin',values)
+    .then(result =>
+    {
+      navigate('/dashboard')
+    }
+    )
+    .catch(err =>console.log(err))
   }
   return (
     <div className='d-flex justify-content-center align-items-center vh-100 loginPage'>
